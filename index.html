@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="pl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Glazurnictwo FU Verso Piotr Lysko</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .parallax {
+            background-attachment: fixed;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+
+        .text-overlay {
+            background: rgba(0, 0, 0, 0.5);
+            padding: 2rem;
+            border-radius: 0.5rem;
+        }
+
+        .gallery-container {
+            position: relative;
+            width: 100%;
+            height: 60vh;
+            overflow: hidden;
+            touch-action: pan-y pinch-zoom;
+        }
+
+        .gallery-wrapper {
+            position: relative;
+            max-width: 1024px;
+            margin: 0 auto;
+            padding: 0 3rem;
+        }
+
+        .gallery-slide {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+        }
+
+        .gallery-slide.active {
+            opacity: 1;
+        }
+
+        .gallery-slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .dot {
+            height: 10px;
+            width: 10px;
+            background-color: #bbb;
+            border-radius: 50%;
+            display: inline-block;
+            margin: 0 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .dot.active {
+            background-color: #3B82F6;
+        }
+
+        @media (max-width: 768px) {
+            .gallery-container {
+                cursor: grab;
+            }
+
+            .gallery-container:active {
+                cursor: grabbing;
+            }
+        }
+
+        .nav-button {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: #3B82F6;
+            color: white;
+            width: 2.5rem;
+            height: 2.5rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            z-index: 20;
+        }
+
+        .nav-button:hover {
+            background: #2563EB;
+        }
+
+        .nav-button.prev {
+            left: 0;
+        }
+
+        .nav-button.next {
+            right: 0;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-100 text-gray-800">
+    <!-- Navigation -->
+    <nav class="fixed top-0 left-0 right-0 z-50 bg-white shadow-md">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <h2 class="text-xl font-bold">F.U. Verso Piotr Lysko</h2>
+            <div class="space-x-6">
+                <a href="#home" class="font-bold text-lg hover:text-blue-600 transition">Oferta</a>
+                <a href="#gallery" class="font-bold text-lg hover:text-blue-600 transition">Galeria</a>
+                <a href="#contact" class="font-bold text-lg hover:text-blue-600 transition">Kontakt</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Home Section with Parallax Background -->
+    <section id="home" class="h-screen parallax" style="background-image: url('images/main-background.jpg');">
+        <div class="container mx-auto px-4 h-full flex flex-col justify-center items-center text-center text-white">
+            <div class="text-overlay text-white">
+                <h1 class="text-5xl font-bold mb-6 drop-shadow-lg">Glazurnictwo, układanie płytek F.U. Verso Piotr Lysko
+                </h1>
+                <p class="text-xl max-w-2xl mx-auto mb-8 drop-shadow-md">
+                    Specjalizuję się w remontach i wykańczaniu łazienek. Wszystkie dodane zdjęcia są z moich realizacji.
+                    Pracuję na terenie Śląska i Małopolski. Zapraszam do kontaktu telefonicznego lub pisemnego.
+                </p>
+                <div class="space-x-4">
+                    <a href="#gallery" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg transition">
+                        Moje realizacje
+                    </a>
+                    <a href="#contact" class="bg-white text-blue-600 hover:bg-gray-100 px-6 py-3 rounded-lg transition">
+                        Skontaktuj się
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section id="gallery" class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-10">Galeria</h2>
+
+            <div class="gallery-wrapper">
+                <button class="nav-button prev" onclick="changeSlide(-1)">←</button>
+                <div class="gallery-container rounded-lg shadow-lg">
+                    <div class="gallery-slide active">
+                        <img src="images/first-image.jpg" alt="Bathroom Tiling Project 1">
+                    </div>
+                    <div class="gallery-slide">
+                        <img src="images/second-image.jpg" alt="Bathroom Tiling Project 2">
+                    </div>
+                    <div class="gallery-slide">
+                        <img src="images/main-background.jpg" alt="Bathroom Tiling Project 3">
+                    </div>
+                    <div class="gallery-slide">
+                        <img src="images/main-background.jpg" alt="Bathroom Tiling Project 3">
+                    </div>
+                </div>
+                <button class="nav-button next" onclick="changeSlide(1)">→</button>
+            </div>
+
+            <div class="text-center mt-4">
+                <span class="dot active" onclick="currentSlide(0)"></span>
+                <span class="dot" onclick="currentSlide(1)"></span>
+                <span class="dot" onclick="currentSlide(2)"></span>
+                <span class="dot" onclick="currentSlide(3)"></span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Parallax Background Section -->
+    <section class="h-96 parallax" style="background-image: url('images/second-background.JPEG');">
+        <div class="h-full flex items-center justify-center">
+            <div class="text-overlay text-center text-white">
+                <h3 class="text-4xl font-bold mb-4 drop-shadow-lg">Jakościowe wykonanie</h3>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <footer id="contact" class="bg-gray-800 text-white py-16">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-3xl font-bold mb-8">Kontakt</h2>
+            <div class="max-w-md mx-auto space-y-6">
+                <div class="flex flex-col items-center space-y-4">
+                    <div>
+                        <h3 class="text-xl font-semibold mb-2">F.U. Verso Piotr Lysko</h3>
+                        <p class="text-lg">Glazurnik, płytkarz</p>
+                    </div>
+                    
+                    <div class="space-y-2">
+                        <p class="text-lg">
+                            <span class="font-semibold">Telefon:</span> 
+                            <a href="tel:+1234567890" class="hover:text-blue-400 transition">+48 502 245 540</a>
+                        </p>
+                        <p class="text-lg">
+                            <span class="font-semibold">Email:</span> 
+                            <a href="mailto:contact@tilingexpert.com" class="hover:text-blue-400 transition">verso75@gmail.com</a>
+                        </p>
+                    </div>
+
+                    <div class="flex space-x-6 mt-6">
+                        <a href="https://www.facebook.com/verso1975" target="_blank" class="text-white hover:text-blue-400 transition">
+                            <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/>
+                            </svg>
+                        </a>
+                        <a href="https://instagram.com" target="_blank" class="text-white hover:text-blue-400 transition">
+                            <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        let currentSlideIndex = 0;
+        const slides = document.querySelectorAll('.gallery-slide');
+        const dots = document.querySelectorAll('.dot');
+        const container = document.querySelector('.gallery-container');
+        let touchStartX = 0;
+        let touchEndX = 0;
+
+        // Touch events
+        container.addEventListener('touchstart', e => {
+            touchStartX = e.touches[0].clientX;
+        });
+
+        container.addEventListener('touchmove', e => {
+            touchEndX = e.touches[0].clientX;
+        });
+
+        container.addEventListener('touchend', () => {
+            const swipeDistance = touchEndX - touchStartX;
+            if (Math.abs(swipeDistance) > 50) {
+                changeSlide(swipeDistance > 0 ? -1 : 1);
+            }
+        });
+
+        function showSlide(index) {
+            slides.forEach(slide => slide.classList.remove('active'));
+            dots.forEach(dot => dot.classList.remove('active'));
+            
+            slides[index].classList.add('active');
+            dots[index].classList.add('active');
+        }
+
+        function changeSlide(direction) {
+            currentSlideIndex = (currentSlideIndex + direction + slides.length) % slides.length;
+            showSlide(currentSlideIndex);
+        }
+
+        function currentSlide(index) {
+            currentSlideIndex = index;
+            showSlide(currentSlideIndex);
+        }
+    </script>
+</body>
+
+</html>
