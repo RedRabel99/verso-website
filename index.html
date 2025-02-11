@@ -106,6 +106,166 @@
         .nav-button.next {
             right: 0;
         }
+
+        .full-gallery-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.9);
+            z-index: 1000;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            animation: slideDown 0.5s ease;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .full-gallery-content {
+            position: relative;
+            width: 90%;
+            height: 90%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .full-gallery-images {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+            overflow-y: auto;
+            overflow-x: hidden;
+            max-height: 100%;
+            padding-right: 1rem;
+        }
+
+        .full-gallery-images {
+            scrollbar-width: thin;
+            scrollbar-color: rgba(255, 255, 255, 0.3) rgba(255, 255, 255, 0.1);
+        }
+
+        .full-gallery-images::-webkit-scrollbar{
+            width: 8px;
+        }
+
+        .full-gallery-images::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+        }
+
+        .full-gallery-images::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 4px;
+            transition: background 0.3s;
+        }
+
+        .full-gallery-images::-webkit-scrollbar-thumb:hover {
+            background: rgba(255, 255, 255, 0.5);
+        }
+
+        @media (max-width: 1024px) {
+            .full-gallery-images {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .full-gallery-images {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .full-gallery-images {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .full-gallery-images img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .full-gallery-images img:hover {
+            transform: scale(1.05);
+        }
+
+        .close-gallery {
+            position: absolute;
+            top: -2rem;
+            right: 0;
+            color: white;
+            font-size: 2rem;
+            cursor: pointer;
+        }
+
+        /* Single image view modal */
+        .single-image-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.95);
+            z-index: 1100; /* Higher than gallery modal */
+            display: none;
+            justify-content: center;
+            align-items: center;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .single-image-container {
+            position: relative;
+            width: 90%;
+            height: 90%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .single-image-container img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+
+        .close-single-image {
+            position: absolute;
+            top: -2rem;
+            right: 0;
+            color: white;
+            font-size: 2rem;
+            cursor: pointer;
+            z-index: 1110;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        /* Make gallery images clickable */
+        .full-gallery-images img {
+            cursor: pointer;
+        }
     </style>
 </head>
 
@@ -123,7 +283,7 @@
     </nav>
 
     <!-- Home Section with Parallax Background -->
-    <section id="home" class="h-screen parallax" style="background-image: url('images/main-background.jpg');">
+    <section id="home" class="h-screen parallax" style="background-image: url('images/second-background.JPEG');">
         <div class="container mx-auto px-4 h-full flex flex-col justify-center items-center text-center text-white">
             <div class="text-overlay text-white">
                 <h1 class="text-5xl font-bold mb-6 drop-shadow-lg">Glazurnictwo, układanie płytek F.U. Verso Piotr Lysko
@@ -153,16 +313,16 @@
                 <button class="nav-button prev" onclick="changeSlide(-1)">←</button>
                 <div class="gallery-container rounded-lg shadow-lg">
                     <div class="gallery-slide active">
-                        <img src="images/first-image.jpg" alt="Bathroom Tiling Project 1">
+                        <img src="images/first-image.jpg" alt="Bathroom Tiling Project 1" onclick="openFullGallery()">
                     </div>
                     <div class="gallery-slide">
-                        <img src="images/second-image.jpg" alt="Bathroom Tiling Project 2">
+                        <img src="images/second-image.jpg" alt="Bathroom Tiling Project 2" onclick="openFullGallery()">
                     </div>
                     <div class="gallery-slide">
-                        <img src="images/main-background.jpg" alt="Bathroom Tiling Project 3">
+                        <img src="images/main-background.jpg" alt="Bathroom Tiling Project 3" onclick="openFullGallery()">
                     </div>
                     <div class="gallery-slide">
-                        <img src="images/main-background.jpg" alt="Bathroom Tiling Project 3">
+                        <img src="images/main-background.jpg" alt="Bathroom Tiling Project 3" onclick="openFullGallery()">
                     </div>
                 </div>
                 <button class="nav-button next" onclick="changeSlide(1)">→</button>
@@ -175,7 +335,52 @@
                 <span class="dot" onclick="currentSlide(3)"></span>
             </div>
         </div>
+        <div class="text-center mt-4">
+            <button class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg transition justify-center" onclick="openFullGallery()">Zobacz całą galerię</button>
+        </div>
+        
     </section>
+
+    <!-- Full Gallery Modal  -->
+    <div id="fullGalleryModal" class="full-gallery-modal" onclick="closeGalleryIfOutside(event)">
+        <div class="full-gallery-content">
+            <span class="close-gallery mt-4" onclick="closeFullGallery()">&times;</span>
+            <div class="full-gallery-images">
+                <img src="images/9424.JPEG" alt="Full Gallery Image 1" onclick="openSingleImage(this.src, this.alt)">
+                <img src="images/9427.JPEG" alt="Full Gallery Image 2" onclick="openSingleImage(this.src, this.alt)">
+                <img src="images/9429.JPEG" alt="Full Gallery Image 3" onclick="openSingleImage(this.src, this.alt)">
+                <img src="images/IMG_5853.jpg" alt="Full Gallery Image 4" onclick="openSingleImage(this.src, this.alt)">
+                <img src="images/IMG_5455.jpg" alt="Full Gallery Image 5" onclick="openSingleImage(this.src, this.alt)">
+                <img src="images/9430.JPEG" alt="Full Gallery Image 6" onclick="openSingleImage(this.src, this.alt)">
+                <img src="images/9436.JPEG" alt="Full Gallery Image 7" onclick="openSingleImage(this.src, this.alt)">
+                <img src="images/IMG_5854.jpg" alt="Full Gallery Image 8" onclick="openSingleImage(this.src, this.alt)">
+                <img src="images/9424.JPEG" alt="Full Gallery Image 1" onclick="openSingleImage(this.src, this.alt)">
+                <img src="images/9427.JPEG" alt="Full Gallery Image 2" onclick="openSingleImage(this.src, this.alt)">
+                <img src="images/9429.JPEG" alt="Full Gallery Image 3" onclick="openSingleImage(this.src, this.alt)">
+                <img src="images/IMG_5853.jpg" alt="Full Gallery Image 4" onclick="openSingleImage(this.src, this.alt)">
+                <img src="images/IMG_5455.jpg" alt="Full Gallery Image 5" onclick="openSingleImage(this.src, this.alt)">
+                <img src="images/9430.JPEG" alt="Full Gallery Image 6" onclick="openSingleImage(this.src, this.alt)">
+                <img src="images/9436.JPEG" alt="Full Gallery Image 7" onclick="openSingleImage(this.src, this.alt)">
+                <img src="images/IMG_5854.jpg" alt="Full Gallery Image 8" onclick="openSingleImage(this.src, this.alt)">
+                <img src="images/9424.JPEG" alt="Full Gallery Image 1" onclick="openSingleImage(this.src, this.alt)">
+                <img src="images/9427.JPEG" alt="Full Gallery Image 2" onclick="openSingleImage(this.src, this.alt)">
+                <img src="images/9429.JPEG" alt="Full Gallery Image 3" onclick="openSingleImage(this.src, this.alt)">
+                <img src="images/IMG_5853.jpg" alt="Full Gallery Image 4" onclick="openSingleImage(this.src, this.alt)">
+                <img src="images/IMG_5455.jpg" alt="Full Gallery Image 5" onclick="openSingleImage(this.src, this.alt)">
+                <img src="images/9430.JPEG" alt="Full Gallery Image 6" onclick="openSingleImage(this.src, this.alt)">
+                <img src="images/9436.JPEG" alt="Full Gallery Image 7" onclick="openSingleImage(this.src, this.alt)">
+                <img src="images/IMG_5854.jpg" alt="Full Gallery Image 8" onclick="openSingleImage(this.src, this.alt)">
+            </div>
+        </div>
+    </div>
+
+    <!-- Single Image Modal -->
+    <div id="singleImageModal" class="single-image-modal" onclick="closeSingleImageIfOutside(event)">
+        <div class="single-image-container">
+            <span class="close-single-image" onclick="closeSingleImage()">&times;</span>
+            <img id="singleImage" src="" alt="">
+        </div>
+    </div>
 
     <!-- Parallax Background Section -->
     <section class="h-96 parallax" style="background-image: url('images/second-background.JPEG');">
@@ -226,6 +431,7 @@
     </footer>
 
     <script>
+        closeFullGallery()
         let currentSlideIndex = 0;
         const slides = document.querySelectorAll('.gallery-slide');
         const dots = document.querySelectorAll('.dot');
@@ -266,6 +472,42 @@
             currentSlideIndex = index;
             showSlide(currentSlideIndex);
         }
+
+        function openFullGallery() {
+            document.getElementById('fullGalleryModal').style.display = 'flex';
+        }
+
+        function closeFullGallery() {
+            document.getElementById('fullGalleryModal').style.display = 'none';
+            document.getElementById('singleImageModal').style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        function closeGalleryIfOutside(event) {
+            // Close only if clicking on the modal background
+            if (event.target.classList.contains('full-gallery-modal')) {
+                closeFullGallery();
+            }
+        }
+
+    
+        function openSingleImage(src, alt) {
+            const modal = document.getElementById('singleImageModal');
+            const img = document.getElementById('singleImage');
+            img.src = src;
+            img.alt = alt;
+            modal.style.display = 'flex';
+        }
+
+        function closeSingleImage() {
+            document.getElementById('singleImageModal').style.display = 'none';
+        }
+
+        function closeSingleImageIfOutside(event) {
+            if (event.target.classList.contains('single-image-modal')) {
+                closeSingleImage();
+            }
+        } 
     </script>
 </body>
 
