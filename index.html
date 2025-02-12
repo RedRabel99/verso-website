@@ -1,9 +1,10 @@
 <!DOCTYPE html>
-<html lang="pl">
+<html lang="pl" class="scroll-smooth">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
     <title>Glazurnictwo FU Verso Piotr Lysko</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
@@ -14,10 +15,15 @@
             background-size: cover;
         }
 
+        body{
+            font-family: 'Montserrat';
+        }
+
         .text-overlay {
             background: rgba(0, 0, 0, 0.5);
             padding: 2rem;
             border-radius: 0.5rem;
+            backdrop-filter: blur(10px);
         }
 
         .gallery-container {
@@ -65,7 +71,7 @@
         }
 
         .dot.active {
-            background-color: #3B82F6;
+            background-color: #333;
         }
 
         @media (max-width: 768px) {
@@ -82,7 +88,7 @@
             position: absolute;
             top: 50%;
             transform: translateY(-50%);
-            background: #3B82F6;
+            background: #333;
             color: white;
             width: 2.5rem;
             height: 2.5rem;
@@ -95,8 +101,13 @@
             z-index: 20;
         }
 
+        .nav-button svg {
+            width: 1.5rem;
+            height: 1.5rem;
+        }
+
         .nav-button:hover {
-            background: #2563EB;
+            background: #555;
         }
 
         .nav-button.prev {
@@ -269,7 +280,7 @@
     </style>
 </head>
 
-<body class="bg-gray-100 text-gray-800">
+<body class="bg-gray-100 text-gray-800 tracking-wider">
     <!-- Navigation -->
     <nav class="fixed top-0 left-0 right-0 z-50 bg-white shadow-md">
         <div class="container mx-auto px-4 py-3 flex justify-between items-center">
@@ -285,18 +296,18 @@
     <!-- Home Section with Parallax Background -->
     <section id="home" class="h-screen parallax" style="background-image: url('images/second-background.JPEG');">
         <div class="container mx-auto px-4 h-full flex flex-col justify-center items-center text-center text-white">
-            <div class="text-overlay text-white">
-                <h1 class="text-5xl font-bold mb-6 drop-shadow-lg">Glazurnictwo, układanie płytek F.U. Verso Piotr Lysko
+            <div class="text-overlay text-white flex flex-col items-center">
+                <h1 class="text-5xl font-bold mb-6 drop-shadow-lg">Glazurnictwo, układanie płytek </br>F.U. Verso Piotr Lysko
                 </h1>
                 <p class="text-xl max-w-2xl mx-auto mb-8 drop-shadow-md">
                     Specjalizuję się w remontach i wykańczaniu łazienek. Wszystkie dodane zdjęcia są z moich realizacji.
                     Pracuję na terenie Śląska i Małopolski. Zapraszam do kontaktu telefonicznego lub pisemnego.
                 </p>
-                <div class="space-x-4">
-                    <a href="#gallery" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg transition">
+                <div class="flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-4 items-center">
+                    <a href="#gallery" class=" hover:bg-[#333] text-white px-6 py-3 rounded-lg transition border-2 border-white text-center font-bold">
                         Moje realizacje
                     </a>
-                    <a href="#contact" class="bg-white text-blue-600 hover:bg-gray-100 px-6 py-3 rounded-lg transition">
+                    <a href="#contact" class="bg-white text-[#333] hover:bg-gray-100 px-6 py-3 rounded-lg transition text-center font-bold">
                         Skontaktuj się
                     </a>
                 </div>
@@ -307,10 +318,14 @@
     <!-- Gallery Section -->
     <section id="gallery" class="py-16 bg-white">
         <div class="container mx-auto px-4">
-            <h2 class="text-3xl font-bold text-center mb-10">Galeria</h2>
+            <h2 class="text-4xl font-bold text-center mb-10">Galeria</h2>
 
             <div class="gallery-wrapper">
-                <button class="nav-button prev" onclick="changeSlide(-1)">←</button>
+                <button class="nav-button prev" onclick="changeSlide(-1)">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M15 18l-6-6 6-6"/>
+                    </svg>
+                </button>
                 <div class="gallery-container rounded-lg shadow-lg">
                     <div class="gallery-slide active">
                         <img src="images/first-image.jpg" alt="Bathroom Tiling Project 1" onclick="openFullGallery()">
@@ -325,7 +340,11 @@
                         <img src="images/main-background.jpg" alt="Bathroom Tiling Project 3" onclick="openFullGallery()">
                     </div>
                 </div>
-                <button class="nav-button next" onclick="changeSlide(1)">→</button>
+                <button class="nav-button next" onclick="changeSlide(1)">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M9 18l6-6-6-6"/>
+                    </svg>
+                </button>
             </div>
 
             <div class="text-center mt-4">
@@ -336,7 +355,7 @@
             </div>
         </div>
         <div class="text-center mt-4">
-            <button class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg transition justify-center" onclick="openFullGallery()">Zobacz całą galerię</button>
+            <button class="bg-[#333] hover:bg-[#444] text-white px-6 py-3 rounded-lg transition justify-center" onclick="openFullGallery()">Zobacz całą galerię</button>
         </div>
         
     </section>
@@ -344,7 +363,7 @@
     <!-- Full Gallery Modal  -->
     <div id="fullGalleryModal" class="full-gallery-modal" onclick="closeGalleryIfOutside(event)">
         <div class="full-gallery-content">
-            <span class="close-gallery mt-4" onclick="closeFullGallery()">&times;</span>
+            <span class="close-gallery mt-4 fixed p-2 lg:p-5" onclick="closeFullGallery()">&times;</span>
             <div class="full-gallery-images">
                 <img src="images/9424.JPEG" alt="Full Gallery Image 1" onclick="openSingleImage(this.src, this.alt)">
                 <img src="images/9427.JPEG" alt="Full Gallery Image 2" onclick="openSingleImage(this.src, this.alt)">
