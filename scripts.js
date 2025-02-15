@@ -1,0 +1,93 @@
+closeFullGallery()
+let currentSlideIndex = 0;
+const slides = document.querySelectorAll('.gallery-slide');
+const dots = document.querySelectorAll('.dot');
+const container = document.querySelector('.gallery-container');
+let touchStartX = 0;
+let touchEndX = 0;
+
+const hamburger = document.getElementById("hamburger");
+const mobileMenu = document.getElementById("mobile-menu");
+const navLinks = document.querySelectorAll('[data-link]');
+
+// Toggle mobile menu when hamburger is clicked
+hamburger.addEventListener("click", () => {
+    mobileMenu.classList.toggle("hidden");
+});
+
+// Hide mobile menu when a nav link is clicked
+navLinks.forEach(link => {
+    link.addEventListener("click", () => {
+        mobileMenu.classList.add("hidden"); // Hide mobile menu
+    });
+});
+
+// Touch events
+container.addEventListener('touchstart', e => {
+    touchStartX = e.touches[0].clientX;
+});
+
+container.addEventListener('touchmove', e => {
+    touchEndX = e.touches[0].clientX;
+});
+
+container.addEventListener('touchend', () => {
+    const swipeDistance = touchEndX - touchStartX;
+    if (Math.abs(swipeDistance) > 50) {
+        changeSlide(swipeDistance > 0 ? -1 : 1);
+    }
+});
+
+function showSlide(index) {
+    slides.forEach(slide => slide.classList.remove('active'));
+    dots.forEach(dot => dot.classList.remove('active'));
+    
+    slides[index].classList.add('active');
+    dots[index].classList.add('active');
+}
+
+function changeSlide(direction) {
+    currentSlideIndex = (currentSlideIndex + direction + slides.length) % slides.length;
+    showSlide(currentSlideIndex);
+}
+
+function currentSlide(index) {
+    currentSlideIndex = index;
+    showSlide(currentSlideIndex);
+}
+
+function openFullGallery() {
+    document.getElementById('fullGalleryModal').style.display = 'flex';
+}
+
+function closeFullGallery() {
+    document.getElementById('fullGalleryModal').style.display = 'none';
+    document.getElementById('singleImageModal').style.display = 'none';
+    document.body.style.overflow = 'auto';
+}
+
+function closeGalleryIfOutside(event) {
+    // Close only if clicking on the modal background
+    if (event.target.classList.contains('full-gallery-modal')) {
+        closeFullGallery();
+    }
+}
+
+
+function openSingleImage(src, alt) {
+    const modal = document.getElementById('singleImageModal');
+    const img = document.getElementById('singleImage');
+    img.src = src;
+    img.alt = alt;
+    modal.style.display = 'flex';
+}
+
+function closeSingleImage() {
+    document.getElementById('singleImageModal').style.display = 'none';
+}
+
+function closeSingleImageIfOutside(event) {
+    if (event.target.classList.contains('single-image')) {
+        closeSingleImage();
+    }
+}
