@@ -1,3 +1,6 @@
+@import "tailwindcss";
+
+
 .parallax {
     background-attachment: fixed;
     background-position: center;
