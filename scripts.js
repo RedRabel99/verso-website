@@ -3,6 +3,8 @@ let currentSlideIndex = 0;
 const slides = document.querySelectorAll('.gallery-slide');
 const dots = document.querySelectorAll('.dot');
 const container = document.querySelector('.gallery-container');
+document.addEventListener("DOMContentLoaded", loadGallery)
+
 let touchStartX = 0;
 let touchEndX = 0;
 
@@ -89,5 +91,21 @@ function closeSingleImage() {
 function closeSingleImageIfOutside(event) {
     if (event.target.classList.contains('single-image')) {
         closeSingleImage();
+    }
+}
+
+function loadGallery() {
+    const galleryContainer = document.getElementById("full-gallery-images");
+    const imageCount = 45;
+    
+    for(let i = 1; i <= imageCount; i++){
+        const img = document.createElement("img");
+        img.src = `images/bathroom-picture-${i}.JPEG`;
+        img.alt = `Zdjęcie łazienki ${i}`;
+        img.loading = "lazy";
+        img.onclick = function() {
+            openSingleImage(this.src, this.alt);
+        }
+        galleryContainer.appendChild(img);
     }
 }
