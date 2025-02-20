@@ -3,6 +3,7 @@
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
+    height: 100vh;
 }
 
 body{
@@ -14,6 +15,9 @@ body{
     padding: 2rem;
     border-radius: 0.5rem;
     backdrop-filter: blur(10px);
+    max-width: 95%;
+    margin: 0 auto;
+    width: 100%;
 }
 
 .gallery-container {
@@ -64,14 +68,41 @@ body{
     background-color: #333;
 }
 
-@media (max-width: 768px) {
-    .text-overlay{
-        width: 100vw;
-        font-size: 1rem;
-        padding: 1.5rem;
+
+@media (min-width: 768px) {
+    .text-overlay {
+        max-width: 80%;
     }
-    .text-overlay h1, .text-overlay h2 {
+}
+
+
+@media (min-width: 1024px) {
+    .text-overlay {
+        max-width: 70%;
+    }
+}
+
+@media (min-width: 1280px) {
+    .text-overlay {
+        max-width: 65%;
+    }
+    #home.parallax{
+        max-height: 100vh;
+    }
+    #about.parallax{
+        max-height: 70vh;
+    }
+}
+@media (max-width: 768px) {
+
+    
+    .text-overlay h1, .text-overlay h2, .text-overlay h3 {
         font-size: 2.2rem; /* Make headings smaller */
+    }
+
+    .text-overlay p {
+        margin-bottom: 0.75rem;
+        line-height: 1.4;
     }
 
     .gallery-container {
@@ -80,6 +111,14 @@ body{
 
     .gallery-container:active {
         cursor: grabbing;
+    }
+
+    #home.parallax {
+        min-height: 100vh; /* Taller for the main hero section */
+    }
+
+    #about.parallax {
+        min-height: 120vh; /* Even taller for the section with more text */
     }
 }
 
