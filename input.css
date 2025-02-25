@@ -1,9 +1,15 @@
+@import "tailwindcss";
+
+
 .parallax {
     background-attachment: fixed;
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
-    height: 100vh;
+    min-height: 90vh;
+    display: flex;
+    align-items: center;
+    padding: 6rem 0;
 }
 
 body{
@@ -15,7 +21,7 @@ body{
     padding: 2rem;
     border-radius: 0.5rem;
     backdrop-filter: blur(10px);
-    max-width: 95%;
+    max-width: 98%;
     margin: 0 auto;
     width: 100%;
 }
@@ -103,6 +109,9 @@ body{
     .text-overlay p {
         margin-bottom: 0.75rem;
         line-height: 1.4;
+        max-width: 100%;
+        padding: 1.5rem;
+        border-radius: 0.25rem;
     }
 
     .gallery-container {
@@ -114,11 +123,37 @@ body{
     }
 
     #home.parallax {
-        min-height: 100vh; /* Taller for the main hero section */
+         /* Taller for the main hero section */
+        height: auto;
+        padding-top: 5rem;
     }
 
     #about.parallax {
-        min-height: 120vh; /* Even taller for the section with more text */
+        min-height: 140vh; /* Even taller for the section with more text */
+        height: auto;
+    }
+
+    .parallax{
+        padding: 5rem 0.5rem;
+    }
+}
+
+/* Add a more precise breakpoint for smaller phones */
+@media (max-width: 400px) {
+    #home.parallax, #about.parallax {
+        padding-left: 0.25rem;
+        padding-right: 0.25rem;
+        padding-bottom: 3rem;
+    }
+    
+    .text-overlay {
+        padding: 1.25rem;
+        max-width: 100%;
+    }
+    
+    .text-overlay h1 {
+        font-size: 1.75rem;
+        line-height: 1.3;
     }
 }
 
