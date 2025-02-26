@@ -297,8 +297,8 @@ body{
 
 .close-gallery {
     position: absolute;
-    top: -2rem;
-    right: 0;
+    top: -3rem;
+    right: -0.5rem;
     color: white;
     font-size: 2rem;
     cursor: pointer;
