@@ -24,6 +24,16 @@ navLinks.forEach(link => {
     });
 });
 
+document.addEventListener("click", (event) => {
+    const isMenuOpen = !mobileMenu.classList.contains("hidden");
+    const clickedInsideMenu = mobileMenu.contains(event.target);
+    const clickedOnHamburger = hamburger.contains(event.target);
+    
+    if (isMenuOpen && !clickedInsideMenu && !clickedOnHamburger) {
+        mobileMenu.classList.add("hidden");
+    }
+});
+
 // Touch events
 container.addEventListener('touchstart', e => {
     touchStartX = e.touches[0].clientX;
@@ -89,7 +99,10 @@ function closeSingleImage() {
 }
 
 function closeSingleImageIfOutside(event) {
-    if (event.target.classList.contains('single-image')) {
+    const modal = document.getElementById('singleImageModal');
+    const image = document.getElementById('singleImage');
+
+    if (event.target != image) {
         closeSingleImage();
     }
 }
@@ -109,3 +122,63 @@ function loadGallery() {
         galleryContainer.appendChild(img);
     }
 }
+
+function setupModalHistoryHandling(){
+    let galleryOpen = false;
+    let singleImageOpen = false;
+
+    const originalOpenFullGallery = window.openFullGallery;
+    window.openFullGallery = function(){
+        originalOpenFullGallery();
+
+        if(!galleryOpen){
+            history.pushState({modal: 'gallery'}, '');
+            galleryOpen = true;
+        }
+    };
+
+    const originalCloseFullGallery = window.closeFullGallery;
+    window.closeFullGallery = function (){
+        originalCloseFullGallery();
+        galleryOpen = false;
+    };
+
+    const originalOpenSingleImage = window.openSingleImage;
+    window.openSingleImage = function(src){
+        if(originalOpenSingleImage){
+            originalOpenSingleImage(src);
+        } else{
+            const modal = document.getElementById('singleImageModal');
+            const img = document.getElementById('singleImage');
+            img.src = src;
+            modal.style.display = 'flex';
+        }
+
+        if(!singleImageOpen){
+            history.pushState({modal: 'singleImage'}, '');
+            singleImageOpen = true;
+        }
+    }
+
+    const originalCloseSingleImage = window.closeSingleImage;
+    window.closeSingleImage = function() {
+        originalCloseSingleImage();
+        singleImageOpen = false;
+    };
+    
+    // Handle the popstate event (when back button is pressed)
+    window.addEventListener('popstate', function(event) {
+        // Check which modal might be open and close it
+        if (singleImageOpen) {
+            closeSingleImage();
+            return;
+        }
+        
+        if (galleryOpen) {
+            closeFullGallery();
+            return;
+        }
+    });
+}
+
+document.addEventListener('DOMContentLoaded', setupModalHistoryHandling);

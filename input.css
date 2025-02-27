@@ -1,5 +1,11 @@
 @import "tailwindcss";
-
+@font-face {
+    font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 400;
+    src: url('fonts/montserrat-v29-latin_latin-ext-regular.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+  }
 
 .parallax {
     background-attachment: fixed;
@@ -107,6 +113,7 @@ body{
     }
 
     .text-overlay p {
+        font-size: 1rem;
         margin-bottom: 0.75rem;
         line-height: 1.4;
         max-width: 100%;
@@ -210,6 +217,7 @@ body{
     justify-content: center;
     align-items: center;
     animation: slideDown 0.5s ease;
+    padding: 0;
 }
 
 @keyframes slideDown {
@@ -229,6 +237,7 @@ body{
     height: 90%;
     display: flex;
     flex-direction: column;
+    margin: 0 auto;
 }
 
 .full-gallery-images {
@@ -239,6 +248,8 @@ body{
     overflow-x: hidden;
     max-height: 100%;
     padding-right: 1rem;
+    margin: 0 auto;
+    width: 100%;
 }
 
 .full-gallery-images {
@@ -272,8 +283,15 @@ body{
 }
 
 @media (max-width: 768px) {
+    .full-gallery-content {
+        width: 95%; /* Slightly wider on mobile */
+        margin: 0 auto;
+    }
+
     .full-gallery-images {
         grid-template-columns: repeat(2, 1fr);
+        padding-right: 0.5rem; /* Reduce right padding on mobile */
+        padding-left: 0.5rem; /* Add equal left padding */
     }
 }
 
@@ -297,8 +315,8 @@ body{
 
 .close-gallery {
     position: absolute;
-    top: -2rem;
-    right: 0;
+    top: -3rem;
+    right: -0.5rem;
     color: white;
     font-size: 2rem;
     cursor: pointer;
