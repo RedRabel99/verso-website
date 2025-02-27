@@ -89,7 +89,10 @@ function closeSingleImage() {
 }
 
 function closeSingleImageIfOutside(event) {
-    if (event.target.classList.contains('single-image')) {
+    const modal = document.getElementById('singleImageModal');
+    const image = document.getElementById('singleImage');
+
+    if (event.target != image) {
         closeSingleImage();
     }
 }
