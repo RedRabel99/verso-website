@@ -24,6 +24,16 @@ navLinks.forEach(link => {
     });
 });
 
+document.addEventListener("click", (event) => {
+    const isMenuOpen = !mobileMenu.classList.contains("hidden");
+    const clickedInsideMenu = mobileMenu.contains(event.target);
+    const clickedOnHamburger = hamburger.contains(event.target);
+    
+    if (isMenuOpen && !clickedInsideMenu && !clickedOnHamburger) {
+        mobileMenu.classList.add("hidden");
+    }
+});
+
 // Touch events
 container.addEventListener('touchstart', e => {
     touchStartX = e.touches[0].clientX;
