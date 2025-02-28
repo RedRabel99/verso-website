@@ -111,7 +111,7 @@ function loadGallery() {
     const galleryContainer = document.getElementById("full-gallery-images");
     const imageCount = 45;
     
-    for(let i = 1; i <= imageCount; i++){
+    for(let i = 0; i <= imageCount; i++){
         const img = document.createElement("img");
         img.src = `images/bathroom-picture-${i}.JPEG`;
         img.alt = `Zdjęcie łazienki ${i}`;
